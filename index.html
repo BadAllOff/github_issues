@@ -9,9 +9,31 @@
 </head>
 
 <body>
-  <div class="container form-container"></div>
+  <div class="container form-container">
+    <form id="search_issues_form">
+      <div class="form-row">
+        <div class="col-auto">
+          <span class="github-address">http://github.com/</span>
+        </div>
+        <div class="col-auto">
+          <input type="text" name="username" class="form-control" placeholder="Username" />
+        </div>
+        <div class="col-auto">
+          <span class="github-address">/</span>
+        </div>
+        <div class="col-auto">
+          <input type="text" class="form-control" name="repository" placeholder="Repository" />
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary mb-2">
+            Find issues
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
 
-
+<!-- Javascript below -->
   <script type="text/javascript" src="index.js"></script>
 </body>
 
