@@ -1,13 +1,12 @@
-import _ from 'lodash';
-import moment from 'moment';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './style.css';
-
-
-
+import _ from "lodash";
+import moment from "moment";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./style.css";
+const removeMd = require("remove-markdown");
 moment().format();
 
 const searchIssuesForm = document.querySelector("#search_issues_form");
+const resultsContainer = document.querySelector("#results_container");
 
 searchIssuesForm.addEventListener("submit", searchFormSubmitted);
 
@@ -22,7 +21,7 @@ function searchFormSubmitted(e) {
       enableSubmittButton(e);
     })
     .catch((err) => {
-      alert(`Something went wrong: ${err.message}`);
+      resultsContainer.innerHTML = `<span class="badge badge-danger">Something went wrong: ${err.message}</span>`;
       enableSubmittButton(e);
     });
 
@@ -83,30 +82,29 @@ async function fetchIssuesListFromGithub(username, repository) {
 }
 
 function printIssues(params) {
-  const resultsContainer = document.querySelector("#results_container");
   resultsContainer.innerHTML = '<ul class="timeline"></ul>';
   params.forEach((element) => {
     let issue_block = printIssue(element);
     resultsContainer.firstElementChild.append(issue_block);
   });
+
+  return;
 }
 
 function printIssue(element) {
   let issue_block;
-  let descr = element.description.replace(/\[(.*?)\]/gi);
-  let maxLength = 100;
+  let descr = removeMd(element.description);
+  let descrMaxLength = 300;
 
   issue_block = document.createElement("li");
   if (element.closed_at !== null) {
     issue_block.className = "closed";
   }
-  issue_block.innerHTML += `<a target="_blank" href="${element.html_url}">${element.title}</a>`;
-  issue_block.innerHTML += `<span class="float-right">${moment(
-    element.created_at,
-    "YYYYMMDD"
-  ).fromNow()}</span>`;
-  issue_block.innerHTML += `<p>#${element.issue_number}  opened by ${element.author}</p>`;
-  issue_block.innerHTML += `<p>#${shorten(descr, maxLength)} ... </p>`;
+  issue_block.innerHTML += `
+  <a target="_blank" href="${element.html_url}">${element.title}</a>
+  <span class="float-right">${moment(element.created_at,"YYYYMMDD").fromNow()}</span>
+  <p>${shorten(descr, descrMaxLength)} ... </p>`;
+
   return issue_block;
 }
 
