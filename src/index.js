@@ -1,5 +1,7 @@
 import _ from 'lodash';
 import moment from 'moment';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './style.css';
 
 
 
@@ -46,7 +48,6 @@ async function fetchIssuesListFromGithub(username, repository) {
 
   await result
     .then((data) => {
-      console.log(data);
       issues_list = data.map(
         ({
           number,
@@ -77,7 +78,6 @@ async function fetchIssuesListFromGithub(username, repository) {
       return issues_list;
     })
     .then((data) => {
-      // console.log(data);
       printIssues(data);
     });
 }
