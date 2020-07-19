@@ -1,0 +1,20 @@
+{
+  "name": "issues-git",
+  "version": "1.0.0",
+  "description": "Используя Github API (developer.github.com) реализовать приложение, выполняющее следующие функции:",
+  "private": true,
+  "main": "index.js",
+  "devDependencies": {
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.19",
+    "moment": "^2.27.0"
+  }
+}
